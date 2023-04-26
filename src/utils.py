@@ -2,6 +2,27 @@ import os
 import copy
 import torch
 
+def global_pruning(mask_list, mats_score, pruning_ratio):
+    # Step 1: Flatten all masks and concatenate them into a single vector
+    flattened_masks = [mask[key].flatten() for mask in mask_list for key in mask.keys()]
+    flattened_masks_concat = torch.cat(flattened_masks)
+    
+    flattened_score = [score[key].flatten() for score in mats_score for key in score.keys()]
+    flattened_score_concat = torch.cat(flattened_score)
+    
+    flattened_score_concat, i = torch.sort(flattened_score_concat)
+    num_pruning = int(flattened_score_concat.numel() * pruning_ratio)
+    flattened_masks_concat[i[:num_pruning]] = 0
+
+    # Step 3: Update all masks, setting pruned channels to 0
+    mask_index = 0
+    for mask_dict in mask_list:
+        for key in mask_dict.keys():
+            mask_values = flattened_masks_concat[mask_index:mask_index + mask_dict[key].numel()]
+            mask_dict[key] = mask_values.view(mask_dict[key].shape).float()
+            mask_index += mask_dict[key].numel()
+
+    return mask_list
 
 def update_global_model_with_masks(global_model, branch_models, masks):
     global_weights = global_model.state_dict()

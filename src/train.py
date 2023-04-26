@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser(description="PyTorch CIFAR10/100 Training")
 # Datasets
 parser.add_argument("-m", "--model", default="resnet18", type=str)
 parser.add_argument("-d", "--dataset", default="cifar10", type=str)
+parser.add_argument("--prune-mode", type=str, default='global', help="global(per weight) or local (layer-wise per channel) ")
 parser.add_argument(
     "-j",
     "--workers",
@@ -140,17 +141,18 @@ def main():
     lr = args.lr
     # make masks
     masks = [make_mask(global_model) for _ in range(args.num_branches)]
-    mats_grad = [make_grad_mat(global_model) for _ in range(args.num_branches)]
-    args.base = [args.base for _ in range(args.num_branches)]
+    mats_score = [make_grad_mat(global_model) for _ in range(args.num_branches)]
+    args.base_list = [args.base for _ in range(args.num_branches)]
+    
     for epoch in range(args.global_rounds):
         if epoch in args.schedule:
             lr = lr / 10
         print("-------------Training Global Epoch:{}/{} with learning rate:{}-------------".format(epoch + 1, args.global_rounds, lr))
-        global_model, masks = train_n_val(
+        global_model, masks, mats_score, global_val_acc_avg, global_val_loss_avg = train_n_val(
             args,
             global_model,
             masks,
-            mats_grad,
+            mats_score,
             trainloader,
             testloader,
             num_branches=args.num_branches,
@@ -159,6 +161,16 @@ def main():
             lr=lr,
             pruning_rate_step=0.1,
         )
+        if args.prune_mode == 'global':
+            if global_val_acc_avg > args.base:
+                masks = global_pruning(masks, mats_score, pruning_ratio=0.1)
+                print("Pruned globally by 10%")
+                args.base += args.step
+                print(f'Increase prune base accuracy to:{args.base} ')
+        
+        print(f"\nGlobaln Validation Loss avg :{round(global_val_loss_avg, 4)} | Acc avg :{global_val_acc_avg.data}\n")
+            
+        
         # save model
         save_checkpoint(
             global_model.state_dict(),
@@ -172,7 +184,7 @@ def train_n_val(
     args,
     global_model,
     masks,
-    mats_grad,
+    mats_score,
     trainloader,
     testloader,
     num_branches,
@@ -229,7 +241,17 @@ def train_n_val(
                 "Training Branch %d | Local Epoch [%d/%d] | Train loss: %.4f | Train Acc: %.4f"
                 % (idx, epoch + 1, num_epochs, epoch_loss, epoch_acc)
             )
+            # # 累计梯度
+            # for name, param in branch_model.named_parameters():
+            #     if "conv" in name and "weight" in name:
+            #         mats_score[idx][name] += param.grad.data
 
+        # 计算score
+        for name, param in branch_model.named_parameters():
+            if "conv" in name and "weight" in name:
+                mats_score[idx][name] = param.data * param.grad.data
+                mats_score[idx][name] = torch.sum(mats_score[idx][name], dim=tuple(range(1, len(mats_score[idx][name].shape))))
+        
         models.append(branch_model)
         classifier_weight_list[idx] = branch_model.fc.state_dict()
         # validate branch
@@ -242,29 +264,27 @@ def train_n_val(
             "Validating Branch %d | Val loss: %.4f | Val Acc: %.4f"
             % (idx, avg_val_loss, avg_val_acc)
         )
-        # prune branch mask
-        if avg_val_acc > args.base[idx]:
-            for name, param in branch_model.named_parameters():
-                if "conv" in name and "weight" in name:
-                    prune_mask_layerwise(
-                        param.grad.data, param.data, masks[idx][name], pruning_rate_step
-                    )
-            print(f"Mask for branch:{idx} is pruned by {pruning_rate_step*100}%...")
-            args.base[idx] += args.step
-            print(f'Increase prune base accuracy to:{args.base[idx]} ')
+        if args.prune_mode == 'local':
+            # prune branch mask
+            if avg_val_acc > args.base_list[idx]:
+                for name, param in branch_model.named_parameters():
+                    if "conv" in name and "weight" in name:
+                        prune_mask_layerwise(
+                            param.grad.data, param.data, masks[idx][name], pruning_rate_step
+                        )
+                print(f"Mask for branch:{idx} is pruned by {pruning_rate_step*100}%...")
+                args.base_list[idx] += args.step
+                print(f'Increase prune base accuracy to:{args.base_list[idx]} ')
 
     # report global validate loss & accuracy
     global_val_loss_avg = sum(val_loss) / len(val_loss)
     global_val_acc_avg = sum(val_acc) / len(val_acc)
-    print(
-        f"\nGlobaln Validation Loss avg :{round(global_val_loss_avg, 4)} | Acc avg :{global_val_acc_avg.data}\n"
-    )
 
     # Update weight for global model
     new_global_weights = update_global_model_with_masks(global_model, models, masks)
     global_model.load_state_dict(new_global_weights)
 
-    return global_model, masks
+    return global_model, masks, mats_score, global_val_acc_avg, global_val_loss_avg
 
 
 def validate_branch(branch_model, testloader, idx, device, grad=False):
