@@ -1,0 +1,457 @@
+{'model': 'resnet18', 'dataset': 'cifar10', 'prune_mode': 'global', 'workers': 4, 'global_rounds': 80, 'local_epochs': 2, 'train_batch': 128, 'test_batch': 100, 'lr': 0.1, 'schedule': [15, 45, 70], 'weight_decay': 0.0005, 'checkpoint': 'checkpoint/global_prune/0426/res18_prune', 'num_branches': 2, 'beta': 0.9999, 'gama': 1.0, 'base': 0.6, 'step': 0.02, 'pretrained': 'model_best.pth.tar'}
+Device: cuda
+==> Preparing dataset cifar10
+data loaded
+
+Files already downloaded and verified
+building model...
+
+-------------Training Global Epoch:1/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 1.3053 | Train Acc: 0.5163
+Training Branch 0 | Local Epoch [2/2] | Train loss: 1.0204 | Train Acc: 0.6005
+Validating Branch 0 | Val loss: 0.9457 | Val Acc: 0.6495
+Training Branch 1 | Local Epoch [1/2] | Train loss: 1.1853 | Train Acc: 0.5458
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.7931 | Train Acc: 0.6907
+Validating Branch 1 | Val loss: 0.9217 | Val Acc: 0.6552
+Pruned globally by 10%
+Increase prune base accuracy to:0.62 
+
+Globaln Validation Loss avg :0.9337 | Acc avg :0.65235
+
+-------------Training Global Epoch:2/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.9374 | Train Acc: 0.6354
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.7246 | Train Acc: 0.7211
+Validating Branch 0 | Val loss: 0.8559 | Val Acc: 0.6952
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.7379 | Train Acc: 0.7179
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.5609 | Train Acc: 0.7874
+Validating Branch 1 | Val loss: 0.9449 | Val Acc: 0.6716
+Pruned globally by 10%
+Increase prune base accuracy to:0.64 
+
+Globaln Validation Loss avg :0.9004 | Acc avg :0.6834
+
+-------------Training Global Epoch:3/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.6956 | Train Acc: 0.7366
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.5525 | Train Acc: 0.7937
+Validating Branch 0 | Val loss: 1.0289 | Val Acc: 0.6711
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.5550 | Train Acc: 0.7911
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.4565 | Train Acc: 0.8297
+Validating Branch 1 | Val loss: 0.9462 | Val Acc: 0.7047
+Pruned globally by 10%
+Increase prune base accuracy to:0.66 
+
+Globaln Validation Loss avg :0.9876 | Acc avg :0.6879
+
+-------------Training Global Epoch:4/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.5586 | Train Acc: 0.7897
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.4621 | Train Acc: 0.8287
+Validating Branch 0 | Val loss: 0.5668 | Val Acc: 0.7941
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.4593 | Train Acc: 0.8285
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.3888 | Train Acc: 0.8565
+Validating Branch 1 | Val loss: 0.5165 | Val Acc: 0.8170
+Pruned globally by 10%
+Increase prune base accuracy to:0.68 
+
+Globaln Validation Loss avg :0.5416 | Acc avg :0.80555
+
+-------------Training Global Epoch:5/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.4806 | Train Acc: 0.8215
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.4111 | Train Acc: 0.8484
+Validating Branch 0 | Val loss: 0.5019 | Val Acc: 0.8177
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.3902 | Train Acc: 0.8556
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.3352 | Train Acc: 0.8767
+Validating Branch 1 | Val loss: 0.4700 | Val Acc: 0.8387
+Pruned globally by 10%
+Increase prune base accuracy to:0.7000000000000001 
+
+Globaln Validation Loss avg :0.486 | Acc avg :0.8282
+
+-------------Training Global Epoch:6/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.4193 | Train Acc: 0.8457
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.3616 | Train Acc: 0.8654
+Validating Branch 0 | Val loss: 0.5352 | Val Acc: 0.8150
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.3407 | Train Acc: 0.8747
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.2995 | Train Acc: 0.8888
+Validating Branch 1 | Val loss: 0.4573 | Val Acc: 0.8443
+Pruned globally by 10%
+Increase prune base accuracy to:0.7200000000000001 
+
+Globaln Validation Loss avg :0.4962 | Acc avg :0.82965
+
+-------------Training Global Epoch:7/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.3707 | Train Acc: 0.8632
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.3239 | Train Acc: 0.8802
+Validating Branch 0 | Val loss: 0.4982 | Val Acc: 0.8243
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.3033 | Train Acc: 0.8898
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.2640 | Train Acc: 0.9038
+Validating Branch 1 | Val loss: 0.4743 | Val Acc: 0.8422
+Pruned globally by 10%
+Increase prune base accuracy to:0.7400000000000001 
+
+Globaln Validation Loss avg :0.4862 | Acc avg :0.83325
+
+-------------Training Global Epoch:8/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.3303 | Train Acc: 0.8778
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.2951 | Train Acc: 0.8924
+Validating Branch 0 | Val loss: 0.4665 | Val Acc: 0.8425
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.2656 | Train Acc: 0.9029
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.2338 | Train Acc: 0.9145
+Validating Branch 1 | Val loss: 0.3456 | Val Acc: 0.8783
+Pruned globally by 10%
+Increase prune base accuracy to:0.7600000000000001 
+
+Globaln Validation Loss avg :0.4061 | Acc avg :0.8604
+
+-------------Training Global Epoch:9/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.3016 | Train Acc: 0.8888
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.2615 | Train Acc: 0.9059
+Validating Branch 0 | Val loss: 0.3964 | Val Acc: 0.8708
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.2372 | Train Acc: 0.9136
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.2138 | Train Acc: 0.9227
+Validating Branch 1 | Val loss: 0.3688 | Val Acc: 0.8757
+Pruned globally by 10%
+Increase prune base accuracy to:0.7800000000000001 
+
+Globaln Validation Loss avg :0.3826 | Acc avg :0.8732500000000001
+
+-------------Training Global Epoch:10/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.2705 | Train Acc: 0.9022
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.2425 | Train Acc: 0.9127
+Validating Branch 0 | Val loss: 0.3477 | Val Acc: 0.8831
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.2111 | Train Acc: 0.9235
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.1916 | Train Acc: 0.9300
+Validating Branch 1 | Val loss: 0.5189 | Val Acc: 0.8397
+Pruned globally by 10%
+Increase prune base accuracy to:0.8000000000000002 
+
+Globaln Validation Loss avg :0.4333 | Acc avg :0.8613999999999999
+
+-------------Training Global Epoch:11/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.2441 | Train Acc: 0.9108
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.2175 | Train Acc: 0.9211
+Validating Branch 0 | Val loss: 0.3221 | Val Acc: 0.8869
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.1895 | Train Acc: 0.9313
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.1728 | Train Acc: 0.9377
+Validating Branch 1 | Val loss: 0.4148 | Val Acc: 0.8692
+Pruned globally by 10%
+Increase prune base accuracy to:0.8200000000000002 
+
+Globaln Validation Loss avg :0.3684 | Acc avg :0.87805
+
+-------------Training Global Epoch:12/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.2275 | Train Acc: 0.9176
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.1997 | Train Acc: 0.9266
+Validating Branch 0 | Val loss: 0.3909 | Val Acc: 0.8732
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.1707 | Train Acc: 0.9392
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.1543 | Train Acc: 0.9445
+Validating Branch 1 | Val loss: 0.3034 | Val Acc: 0.9081
+Pruned globally by 10%
+Increase prune base accuracy to:0.8400000000000002 
+
+Globaln Validation Loss avg :0.3472 | Acc avg :0.89065
+
+-------------Training Global Epoch:13/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.1994 | Train Acc: 0.9263
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.1839 | Train Acc: 0.9337
+Validating Branch 0 | Val loss: 0.3219 | Val Acc: 0.8889
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.1542 | Train Acc: 0.9441
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.1376 | Train Acc: 0.9498
+Validating Branch 1 | Val loss: 0.2858 | Val Acc: 0.9112
+Pruned globally by 10%
+Increase prune base accuracy to:0.8600000000000002 
+
+Globaln Validation Loss avg :0.3038 | Acc avg :0.90005
+
+-------------Training Global Epoch:14/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.1840 | Train Acc: 0.9334
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.1680 | Train Acc: 0.9383
+Validating Branch 0 | Val loss: 0.3736 | Val Acc: 0.8783
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.1412 | Train Acc: 0.9483
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.1309 | Train Acc: 0.9519
+Validating Branch 1 | Val loss: 0.4197 | Val Acc: 0.8765
+Pruned globally by 10%
+Increase prune base accuracy to:0.8800000000000002 
+
+Globaln Validation Loss avg :0.3967 | Acc avg :0.8774000000000001
+
+-------------Training Global Epoch:15/80 with learning rate:0.1-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.1673 | Train Acc: 0.9392
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.1555 | Train Acc: 0.9429
+Validating Branch 0 | Val loss: 0.3347 | Val Acc: 0.9005
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.1276 | Train Acc: 0.9540
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.1148 | Train Acc: 0.9585
+Validating Branch 1 | Val loss: 0.3260 | Val Acc: 0.9020
+Pruned globally by 10%
+Increase prune base accuracy to:0.9000000000000002 
+
+Globaln Validation Loss avg :0.3303 | Acc avg :0.9012500000000001
+
+-------------Training Global Epoch:16/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.1186 | Train Acc: 0.9590
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0783 | Train Acc: 0.9743
+Validating Branch 0 | Val loss: 0.2295 | Val Acc: 0.9274
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0868 | Train Acc: 0.9704
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0584 | Train Acc: 0.9797
+Validating Branch 1 | Val loss: 0.1903 | Val Acc: 0.9423
+Pruned globally by 10%
+Increase prune base accuracy to:0.9200000000000003 
+
+Globaln Validation Loss avg :0.2099 | Acc avg :0.93485
+
+-------------Training Global Epoch:17/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0958 | Train Acc: 0.9672
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0706 | Train Acc: 0.9762
+Validating Branch 0 | Val loss: 0.2333 | Val Acc: 0.9262
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0706 | Train Acc: 0.9761
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0503 | Train Acc: 0.9831
+Validating Branch 1 | Val loss: 0.1982 | Val Acc: 0.9410
+Pruned globally by 10%
+Increase prune base accuracy to:0.9400000000000003 
+
+Globaln Validation Loss avg :0.2158 | Acc avg :0.9336
+
+-------------Training Global Epoch:18/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0859 | Train Acc: 0.9702
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0660 | Train Acc: 0.9775
+Validating Branch 0 | Val loss: 0.2351 | Val Acc: 0.9263
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0619 | Train Acc: 0.9793
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0450 | Train Acc: 0.9848
+Validating Branch 1 | Val loss: 0.2000 | Val Acc: 0.9420
+
+Globaln Validation Loss avg :0.2175 | Acc avg :0.93415
+
+-------------Training Global Epoch:19/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0775 | Train Acc: 0.9733
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0590 | Train Acc: 0.9800
+Validating Branch 0 | Val loss: 0.2420 | Val Acc: 0.9264
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0559 | Train Acc: 0.9801
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0431 | Train Acc: 0.9856
+Validating Branch 1 | Val loss: 0.2039 | Val Acc: 0.9409
+
+Globaln Validation Loss avg :0.2229 | Acc avg :0.9336500000000001
+
+-------------Training Global Epoch:20/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0748 | Train Acc: 0.9734
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0569 | Train Acc: 0.9802
+Validating Branch 0 | Val loss: 0.2443 | Val Acc: 0.9281
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0526 | Train Acc: 0.9822
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0407 | Train Acc: 0.9859
+Validating Branch 1 | Val loss: 0.2102 | Val Acc: 0.9427
+
+Globaln Validation Loss avg :0.2273 | Acc avg :0.9354
+
+-------------Training Global Epoch:21/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0659 | Train Acc: 0.9771
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0517 | Train Acc: 0.9826
+Validating Branch 0 | Val loss: 0.2590 | Val Acc: 0.9259
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0474 | Train Acc: 0.9836
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0372 | Train Acc: 0.9872
+Validating Branch 1 | Val loss: 0.2151 | Val Acc: 0.9400
+
+Globaln Validation Loss avg :0.237 | Acc avg :0.9329500000000001
+
+-------------Training Global Epoch:22/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0631 | Train Acc: 0.9781
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0492 | Train Acc: 0.9833
+Validating Branch 0 | Val loss: 0.2539 | Val Acc: 0.9277
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0451 | Train Acc: 0.9848
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0355 | Train Acc: 0.9876
+Validating Branch 1 | Val loss: 0.2233 | Val Acc: 0.9411
+
+Globaln Validation Loss avg :0.2386 | Acc avg :0.9344000000000001
+
+-------------Training Global Epoch:23/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0562 | Train Acc: 0.9801
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0472 | Train Acc: 0.9837
+Validating Branch 0 | Val loss: 0.2591 | Val Acc: 0.9278
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0412 | Train Acc: 0.9858
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0324 | Train Acc: 0.9890
+Validating Branch 1 | Val loss: 0.2224 | Val Acc: 0.9418
+
+Globaln Validation Loss avg :0.2408 | Acc avg :0.9348000000000001
+
+-------------Training Global Epoch:24/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0550 | Train Acc: 0.9806
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0446 | Train Acc: 0.9849
+Validating Branch 0 | Val loss: 0.2551 | Val Acc: 0.9289
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0389 | Train Acc: 0.9865
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0317 | Train Acc: 0.9893
+Validating Branch 1 | Val loss: 0.2255 | Val Acc: 0.9413
+
+Globaln Validation Loss avg :0.2403 | Acc avg :0.9351
+
+-------------Training Global Epoch:25/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0508 | Train Acc: 0.9829
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0423 | Train Acc: 0.9856
+Validating Branch 0 | Val loss: 0.2679 | Val Acc: 0.9253
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0373 | Train Acc: 0.9869
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0287 | Train Acc: 0.9905
+Validating Branch 1 | Val loss: 0.2370 | Val Acc: 0.9397
+
+Globaln Validation Loss avg :0.2524 | Acc avg :0.9325000000000001
+
+-------------Training Global Epoch:26/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0469 | Train Acc: 0.9834
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0389 | Train Acc: 0.9870
+Validating Branch 0 | Val loss: 0.2666 | Val Acc: 0.9255
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0335 | Train Acc: 0.9885
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0255 | Train Acc: 0.9917
+Validating Branch 1 | Val loss: 0.2326 | Val Acc: 0.9425
+
+Globaln Validation Loss avg :0.2496 | Acc avg :0.9339999999999999
+
+-------------Training Global Epoch:27/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0449 | Train Acc: 0.9848
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0377 | Train Acc: 0.9871
+Validating Branch 0 | Val loss: 0.2752 | Val Acc: 0.9267
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0329 | Train Acc: 0.9885
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0250 | Train Acc: 0.9908
+Validating Branch 1 | Val loss: 0.2363 | Val Acc: 0.9424
+
+Globaln Validation Loss avg :0.2557 | Acc avg :0.93455
+
+-------------Training Global Epoch:28/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0434 | Train Acc: 0.9850
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0346 | Train Acc: 0.9886
+Validating Branch 0 | Val loss: 0.2831 | Val Acc: 0.9280
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0291 | Train Acc: 0.9896
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0251 | Train Acc: 0.9915
+Validating Branch 1 | Val loss: 0.2404 | Val Acc: 0.9408
+
+Globaln Validation Loss avg :0.2618 | Acc avg :0.9344000000000001
+
+-------------Training Global Epoch:29/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0405 | Train Acc: 0.9859
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0326 | Train Acc: 0.9888
+Validating Branch 0 | Val loss: 0.2838 | Val Acc: 0.9261
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0287 | Train Acc: 0.9903
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0232 | Train Acc: 0.9923
+Validating Branch 1 | Val loss: 0.2553 | Val Acc: 0.9411
+
+Globaln Validation Loss avg :0.2695 | Acc avg :0.9336
+
+-------------Training Global Epoch:30/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0407 | Train Acc: 0.9856
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0308 | Train Acc: 0.9897
+Validating Branch 0 | Val loss: 0.2848 | Val Acc: 0.9259
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0285 | Train Acc: 0.9898
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0213 | Train Acc: 0.9925
+Validating Branch 1 | Val loss: 0.2481 | Val Acc: 0.9422
+
+Globaln Validation Loss avg :0.2665 | Acc avg :0.93405
+
+-------------Training Global Epoch:31/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0370 | Train Acc: 0.9872
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0280 | Train Acc: 0.9910
+Validating Branch 0 | Val loss: 0.2899 | Val Acc: 0.9289
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0252 | Train Acc: 0.9915
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0196 | Train Acc: 0.9938
+Validating Branch 1 | Val loss: 0.2518 | Val Acc: 0.9413
+
+Globaln Validation Loss avg :0.2709 | Acc avg :0.9351
+
+-------------Training Global Epoch:32/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0344 | Train Acc: 0.9883
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0274 | Train Acc: 0.9905
+Validating Branch 0 | Val loss: 0.2944 | Val Acc: 0.9278
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0247 | Train Acc: 0.9915
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0187 | Train Acc: 0.9935
+Validating Branch 1 | Val loss: 0.2592 | Val Acc: 0.9417
+
+Globaln Validation Loss avg :0.2768 | Acc avg :0.9347500000000001
+
+-------------Training Global Epoch:33/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0322 | Train Acc: 0.9889
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0259 | Train Acc: 0.9915
+Validating Branch 0 | Val loss: 0.2960 | Val Acc: 0.9279
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0229 | Train Acc: 0.9924
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0195 | Train Acc: 0.9935
+Validating Branch 1 | Val loss: 0.2591 | Val Acc: 0.9437
+
+Globaln Validation Loss avg :0.2775 | Acc avg :0.9358000000000001
+
+-------------Training Global Epoch:34/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0301 | Train Acc: 0.9895
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0257 | Train Acc: 0.9915
+Validating Branch 0 | Val loss: 0.2975 | Val Acc: 0.9253
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0217 | Train Acc: 0.9924
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0171 | Train Acc: 0.9943
+Validating Branch 1 | Val loss: 0.2651 | Val Acc: 0.9416
+
+Globaln Validation Loss avg :0.2813 | Acc avg :0.93345
+
+-------------Training Global Epoch:35/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0307 | Train Acc: 0.9899
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0230 | Train Acc: 0.9923
+Validating Branch 0 | Val loss: 0.2984 | Val Acc: 0.9263
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0199 | Train Acc: 0.9933
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0158 | Train Acc: 0.9947
+Validating Branch 1 | Val loss: 0.2632 | Val Acc: 0.9415
+
+Globaln Validation Loss avg :0.2808 | Acc avg :0.9339
+
+-------------Training Global Epoch:36/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0281 | Train Acc: 0.9903
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0234 | Train Acc: 0.9920
+Validating Branch 0 | Val loss: 0.3135 | Val Acc: 0.9277
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0214 | Train Acc: 0.9925
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0154 | Train Acc: 0.9949
+Validating Branch 1 | Val loss: 0.2712 | Val Acc: 0.9425
+
+Globaln Validation Loss avg :0.2923 | Acc avg :0.9351
+
+-------------Training Global Epoch:37/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0277 | Train Acc: 0.9904
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0220 | Train Acc: 0.9922
+Validating Branch 0 | Val loss: 0.3066 | Val Acc: 0.9286
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0183 | Train Acc: 0.9940
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0145 | Train Acc: 0.9952
+Validating Branch 1 | Val loss: 0.2663 | Val Acc: 0.9404
+
+Globaln Validation Loss avg :0.2865 | Acc avg :0.9345000000000001
+
+-------------Training Global Epoch:38/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0253 | Train Acc: 0.9922
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0206 | Train Acc: 0.9929
+Validating Branch 0 | Val loss: 0.3120 | Val Acc: 0.9265
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0202 | Train Acc: 0.9930
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0153 | Train Acc: 0.9950
+Validating Branch 1 | Val loss: 0.2722 | Val Acc: 0.9422
+
+Globaln Validation Loss avg :0.2921 | Acc avg :0.93435
+
+-------------Training Global Epoch:39/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0258 | Train Acc: 0.9916
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0198 | Train Acc: 0.9933
+Validating Branch 0 | Val loss: 0.3280 | Val Acc: 0.9267
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0178 | Train Acc: 0.9939
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0146 | Train Acc: 0.9948
+Validating Branch 1 | Val loss: 0.2910 | Val Acc: 0.9413
+
+Globaln Validation Loss avg :0.3095 | Acc avg :0.934
+
+-------------Training Global Epoch:40/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0247 | Train Acc: 0.9921
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0181 | Train Acc: 0.9937
+Validating Branch 0 | Val loss: 0.3301 | Val Acc: 0.9261
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0178 | Train Acc: 0.9945
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0124 | Train Acc: 0.9961
+Validating Branch 1 | Val loss: 0.2803 | Val Acc: 0.9430
+
+Globaln Validation Loss avg :0.3052 | Acc avg :0.93455
+
+-------------Training Global Epoch:41/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0228 | Train Acc: 0.9924
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0191 | Train Acc: 0.9936
+Validating Branch 0 | Val loss: 0.3586 | Val Acc: 0.9204
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0153 | Train Acc: 0.9952
+Training Branch 1 | Local Epoch [2/2] | Train loss: 0.0121 | Train Acc: 0.9959
+Validating Branch 1 | Val loss: 0.2846 | Val Acc: 0.9422
+
+Globaln Validation Loss avg :0.3216 | Acc avg :0.9313
+
+-------------Training Global Epoch:42/80 with learning rate:0.01-------------
+Training Branch 0 | Local Epoch [1/2] | Train loss: 0.0225 | Train Acc: 0.9925
+Training Branch 0 | Local Epoch [2/2] | Train loss: 0.0166 | Train Acc: 0.9946
+Validating Branch 0 | Val loss: 0.3298 | Val Acc: 0.9274
+Training Branch 1 | Local Epoch [1/2] | Train loss: 0.0170 | Train Acc: 0.9943
