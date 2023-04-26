@@ -72,12 +72,13 @@ parser.add_argument(
     help="path to save checkpoint (default: checkpoint)",
 )
 
-# Architecture
 parser.add_argument(
     "--num_branches", type=int, default=2, help="number of experts model"
 )
 parser.add_argument("--beta", type=float, default=0.9999)
 parser.add_argument("--gama", type=float, default=1.0)
+parser.add_argument("--base", type=float, default=0.55, help='the val accuracy base line for pruning')
+parser.add_argument("--step", type=float, default=0.02, help='increase base by step every time the model is pruned')
 parser.add_argument("--pretrained", type=str, default="model_best.pth.tar")
 
 args = parser.parse_args()
@@ -106,20 +107,18 @@ def main():
             transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
         ]
     )
-    # load dataset and user groups
-    # train_dataset, test_dataset, user_groups_train, user_groups_test = get_dataset_cifar10_extr_noniid_v2(args.num_users, args.nclass)
     print("data loaded\n")
 
     dataloader = datasets.CIFAR10
     trainset = dataloader(
-        root="./data", train=True, download=True, transform=transform_train
+        root="/home/xiaolirui/workspace/data", train=True, download=True, transform=transform_train
     )
     trainloader = data.DataLoader(
         trainset, batch_size=args.train_batch, shuffle=True, num_workers=4
     )
 
     testset = dataloader(
-        root="./data", train=False, download=False, transform=transform_test
+        root="/home/xiaolirui/workspace/data", train=False, download=False, transform=transform_test
     )
     testloader = data.DataLoader(
         testset, batch_size=args.test_batch, shuffle=False, num_workers=4
@@ -139,24 +138,23 @@ def main():
     lr = args.lr
     # make masks
     masks = [make_mask(global_model) for _ in range(args.num_branches)]
+    mats_grad = [make_grad_mat(global_model) for _ in range(args.num_branches)]
     for epoch in range(args.global_rounds):
         if epoch in (15, 45):
             lr = lr / 10
-        print(
-            "-------------Training Global Epoch:{}/{} with learning rate:{}-------------".format(
-                epoch + 1, args.global_rounds, lr
-            )
-        )
+        print("-------------Training Global Epoch:{}/{} with learning rate:{}-------------".format(epoch + 1, args.global_rounds, lr))
         global_model, masks = train_n_val(
+            args,
             global_model,
             masks,
+            mats_grad,
             trainloader,
             testloader,
             num_branches=args.num_branches,
             num_epochs=args.local_epochs,
+            device=device,
             lr=lr,
             pruning_rate_step=0.1,
-            device=device,
         )
         # save model
         save_checkpoint(
@@ -168,8 +166,10 @@ def main():
 
 
 def train_n_val(
+    args,
     global_model,
     masks,
+    mats_grad,
     trainloader,
     testloader,
     num_branches,
@@ -182,7 +182,6 @@ def train_n_val(
     models = []
     classifier_weight_list = [[] for _ in range(num_branches)]
     val_loss, val_acc = [], []
-    step, base = [0 for _ in range(num_branches)], [0.5 for _ in range(num_branches)]
     for idx in range(num_branches):
         branch_model = create_masked_branch_model(
             global_model, classifier_weight_list[idx], masks[idx]
@@ -240,17 +239,16 @@ def train_n_val(
             "Validating Branch %d | Val loss: %.4f | Val Acc: %.4f"
             % (idx, avg_val_loss, avg_val_acc)
         )
-
         # prune branch mask
-        if avg_val_acc > base[idx] and step[idx] < 10:
+        if avg_val_acc > args.base:
             for name, param in branch_model.named_parameters():
                 if "conv" in name and "weight" in name:
                     prune_mask_layerwise(
                         param.grad.data, param.data, masks[idx][name], pruning_rate_step
                     )
             print(f"Mask for branch:{idx} is pruned by {pruning_rate_step*100}%...")
-            step[idx] += 1
-            base[idx] += 0.1
+            args.base += args.step
+            print(f'Increased prune base accuracy:{args.base} ')
 
     # report global validate loss & accuracy
     global_val_loss_avg = sum(val_loss) / len(val_loss)
