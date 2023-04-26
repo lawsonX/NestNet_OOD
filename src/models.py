@@ -1,6 +1,36 @@
 from torch import nn
 import torch.nn.functional as F
 
+class BasicBlock(nn.Module):
+
+    def __init__(self, in_planes, planes, stride=1):
+        super(BasicBlock, self).__init__()
+        self.conv1 = nn.Conv2d(
+            in_planes, planes, kernel_size=3, stride=stride, padding=1, bias=False
+        )
+        self.bn1 = nn.BatchNorm2d(planes)
+        self.conv2 = nn.Conv2d(
+            planes, planes, kernel_size=3, stride=1, padding=1, bias=False
+        )
+        self.bn2 = nn.BatchNorm2d(planes)
+
+        self.conv_res = None
+        self.bn_res = None
+        if stride != 1 or in_planes != planes:
+            self.conv_res = nn.Conv2d(
+                in_planes, planes, kernel_size=1, stride=stride, bias=False,
+            )
+            self.bn_res = nn.BatchNorm2d(planes)
+
+    def forward(self, x):
+        out = F.relu(self.bn1(self.conv1(x)))
+        out = self.bn2(self.conv2(out))
+        if self.conv_res is not None and self.bn_res is not None:
+            out += self.bn_res(self.conv_res(x))
+        else:
+            out += x
+        out = F.relu(out)
+        return out
 
 class ResNet18(nn.Module):
     def __init__(self, num_classes):
@@ -10,10 +40,10 @@ class ResNet18(nn.Module):
         self.bn1 = nn.BatchNorm2d(64)
         self.relu = nn.ReLU()
 
-        self.layer1 = self.make_layer(ResidualBlock, 64, 2, stride=1)
-        self.layer2 = self.make_layer(ResidualBlock, 128, 2, stride=2)
-        self.layer3 = self.make_layer(ResidualBlock, 256, 2, stride=2)
-        self.layer4 = self.make_layer(ResidualBlock, 512, 2, stride=2)
+        self.layer1 = self.make_layer(BasicBlock, 64, 2, stride=1)
+        self.layer2 = self.make_layer(BasicBlock, 128, 2, stride=2)
+        self.layer3 = self.make_layer(BasicBlock, 256, 2, stride=2)
+        self.layer4 = self.make_layer(BasicBlock, 512, 2, stride=2)
         self.fc = nn.Linear(512, num_classes)
 
     def make_layer(self, block, channels, num_blocks, stride):
@@ -37,77 +67,6 @@ class ResNet18(nn.Module):
         out = self.fc(out)
         return out
 
-
-class ResidualBlock(nn.Module):
-    def __init__(self, inchannel, outchannel, stride=1):
-        super(ResidualBlock, self).__init__()
-        self.left = nn.Sequential(
-            nn.Conv2d(
-                inchannel,
-                outchannel,
-                kernel_size=3,
-                stride=stride,
-                padding=1,
-                bias=False,
-            ),
-            nn.BatchNorm2d(outchannel),
-            nn.ReLU(inplace=True),
-            nn.Conv2d(
-                outchannel, outchannel, kernel_size=3, stride=1, padding=1, bias=False
-            ),
-            nn.BatchNorm2d(outchannel),
-        )
-        self.shortcut = nn.Sequential()
-        if stride != 1 or inchannel != outchannel:
-            self.shortcut = nn.Sequential(
-                nn.Conv2d(
-                    inchannel, outchannel, kernel_size=1, stride=stride, bias=False
-                ),
-                nn.BatchNorm2d(outchannel),
-            )
-
-    def forward(self, x):
-        out = self.left(x)
-        out += self.shortcut(x)
-        out = F.relu(out)
-        return out
-
-
-class BasicBlock(nn.Module):
-    expansion = 1
-
-    def __init__(self, in_planes, planes, stride=1):
-        super(BasicBlock, self).__init__()
-        self.conv1 = nn.Conv2d(
-            in_planes, planes, kernel_size=3, stride=stride, padding=1, bias=False
-        )
-        self.bn1 = nn.BatchNorm2d(planes)
-        self.conv2 = nn.Conv2d(
-            planes, planes, kernel_size=3, stride=1, padding=1, bias=False
-        )
-        self.bn2 = nn.BatchNorm2d(planes)
-
-        self.shortcut = nn.Sequential()
-        if stride != 1 or in_planes != self.expansion * planes:
-            self.shortcut = nn.Sequential(
-                nn.Conv2d(
-                    in_planes,
-                    self.expansion * planes,
-                    kernel_size=1,
-                    stride=stride,
-                    bias=False,
-                ),
-                nn.BatchNorm2d(self.expansion * planes),
-            )
-
-    def forward(self, x):
-        out = F.relu(self.bn1(self.conv1(x)))
-        out = self.bn2(self.conv2(out))
-        out += self.shortcut(x)
-        out = F.relu(out)
-        return out
-
-
 class ResNet(nn.Module):
     def __init__(self, block, num_blocks, num_classes=10):
         super(ResNet, self).__init__()
@@ -125,7 +84,7 @@ class ResNet(nn.Module):
         layers = []
         for stride in strides:
             layers.append(block(self.in_planes, planes, stride))
-            self.in_planes = planes * block.expansion
+            self.in_planes = planes
         return nn.Sequential(*layers)
 
     def forward(self, x):

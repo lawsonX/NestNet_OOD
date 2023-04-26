@@ -37,10 +37,9 @@ def create_masked_branch_model(global_model, classifier_weight, mask):
     for name, param in branch_model.named_parameters():
         if name in mask:
             param.data.mul_(mask[name])
-    if len(classifier_weight) != 0:  # 各分支模型加载自己的输出层
+    if len(classifier_weight) != 0:  # 分支模型加载自己的输出层
         branch_model.fc.load_state_dict(classifier_weight)
     return branch_model
-
 
 def make_mask(model):
     mask = {}
@@ -49,12 +48,17 @@ def make_mask(model):
             mask[name] = torch.ones_like(param.data)
     return mask
 
+def make_grad_mat(model):
+    mat = {}
+    for name, param in model.named_parameters():
+        if "weight" in name and "conv" in name:
+            mat[name] = torch.zeros_like(param.data)
+    return mat
 
 def compute_score(grad, weight):
     score = weight * grad
     score = torch.sum(score, dim=tuple(range(1, len(score.shape))))
     return score
-
 
 def prune_mask_layerwise(grad, weight, mask, pruning_rate):
     score = weight * grad

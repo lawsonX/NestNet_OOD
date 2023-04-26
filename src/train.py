@@ -144,7 +144,7 @@ def main():
     args.base = [args.base for _ in range(args.num_branches)]
     for epoch in range(args.global_rounds):
         if epoch in args.schedule:
-            lr = lr / 5
+            lr = lr / 10
         print("-------------Training Global Epoch:{}/{} with learning rate:{}-------------".format(epoch + 1, args.global_rounds, lr))
         global_model, masks = train_n_val(
             args,
@@ -251,7 +251,7 @@ def train_n_val(
                     )
             print(f"Mask for branch:{idx} is pruned by {pruning_rate_step*100}%...")
             args.base[idx] += args.step
-            print(f'Increased prune base accuracy:{args.base[idx]} ')
+            print(f'Increase prune base accuracy to:{args.base[idx]} ')
 
     # report global validate loss & accuracy
     global_val_loss_avg = sum(val_loss) / len(val_loss)
