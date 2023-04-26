@@ -28,7 +28,7 @@ parser.add_argument(
 # Optimization options
 parser.add_argument(
     "--global_rounds",
-    default=60,
+    default=80,
     type=int,
     metavar="N",
     help="number of total epochs to run",
@@ -55,6 +55,10 @@ parser.add_argument(
     help="initial learning rate",
 )
 parser.add_argument(
+    '--schedule', type=int, nargs='+', default=[15, 45, 70],
+    help='Decrease learning rate at these epochs.'
+)
+parser.add_argument(
     "--weight-decay",
     "--wd",
     default=5e-4,
@@ -72,12 +76,10 @@ parser.add_argument(
     help="path to save checkpoint (default: checkpoint)",
 )
 
-parser.add_argument(
-    "--num_branches", type=int, default=2, help="number of experts model"
-)
+parser.add_argument("--num_branches", type=int, default=2, help="number of experts model")
 parser.add_argument("--beta", type=float, default=0.9999)
 parser.add_argument("--gama", type=float, default=1.0)
-parser.add_argument("--base", type=float, default=0.55, help='the val accuracy base line for pruning')
+parser.add_argument("--base", type=float, default=0.5, help='the val accuracy base line for pruning')
 parser.add_argument("--step", type=float, default=0.02, help='increase base by step every time the model is pruned')
 parser.add_argument("--pretrained", type=str, default="model_best.pth.tar")
 
@@ -139,9 +141,10 @@ def main():
     # make masks
     masks = [make_mask(global_model) for _ in range(args.num_branches)]
     mats_grad = [make_grad_mat(global_model) for _ in range(args.num_branches)]
+    args.base = [args.base for _ in range(args.num_branches)]
     for epoch in range(args.global_rounds):
-        if epoch in (15, 45):
-            lr = lr / 10
+        if epoch in args.schedule:
+            lr = lr / 5
         print("-------------Training Global Epoch:{}/{} with learning rate:{}-------------".format(epoch + 1, args.global_rounds, lr))
         global_model, masks = train_n_val(
             args,
@@ -240,15 +243,15 @@ def train_n_val(
             % (idx, avg_val_loss, avg_val_acc)
         )
         # prune branch mask
-        if avg_val_acc > args.base:
+        if avg_val_acc > args.base[idx]:
             for name, param in branch_model.named_parameters():
                 if "conv" in name and "weight" in name:
                     prune_mask_layerwise(
                         param.grad.data, param.data, masks[idx][name], pruning_rate_step
                     )
             print(f"Mask for branch:{idx} is pruned by {pruning_rate_step*100}%...")
-            args.base += args.step
-            print(f'Increased prune base accuracy:{args.base} ')
+            args.base[idx] += args.step
+            print(f'Increased prune base accuracy:{args.base[idx]} ')
 
     # report global validate loss & accuracy
     global_val_loss_avg = sum(val_loss) / len(val_loss)
