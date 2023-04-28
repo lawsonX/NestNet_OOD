@@ -1,5 +1,19 @@
+import torch
 from torch import nn
 import torch.nn.functional as F
+
+class ResNetEns(nn.Module):
+
+    def __init__(self, branches, num_classes=1000, block_name='BasicBlock', num=20):
+        super(ResNetEns, self).__init__()
+        self.ens = nn.ModuleList([branch for branch in branches])
+        # self.num_sub = num_classes//num
+
+    def forward(self, x):
+        output_list = [res(x) for res in self.ens]
+        output = torch.cat(tuple(out[:,:-1] for out in output_list),1)
+        # output = torch.cat(tuple(out[:,i*self.num_sub:i*self.num_sub+self.num_sub] for i,out in enumerate(output_list)),1)
+        return output, output_list
 
 class BasicBlock(nn.Module):
 
