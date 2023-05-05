@@ -17,12 +17,13 @@ util/update_global_model_v1
 CUDA_VISIBLE_DEVICES=0 python src/train.py \
 --model resnet18 \
 --num_branches 2 \ 
---lr 0.05 \
---schedule 15 45 70 \
+--lr 0.01 \
+--local_epochs 4 \
+--global_rounds 40 \
+--schedule 12 30 \
 --prune_mode global \
---base 0.5 \
+--base 0.7 \
 --step 0.02 \
---local_epochs 2 \
---global_rounds 90 \
---checkpoint checkpoint/global_prune/0426/res18_prune_b2 \
+--prune-rate 0.05 \
+--checkpoint checkpoint/exp1
 ``` 

@@ -18,13 +18,13 @@ from utils import Bar, AverageMeter, accuracy
 
 parser = argparse.ArgumentParser(description="PyTorch CIFAR10/100 Training")
 # Datasets
-parser.add_argument("-m", "--model", default="resnet18", type=str)
+parser.add_argument("-m", "--model", default="resnet18", type=str, choices=["resnet18, resnet20"])
 parser.add_argument("-d", "--dataset", default="cifar10", type=str)
-parser.add_argument("--prune-mode", type=str, default='global', help="global(per weight) or local (layer-wise per channel) ")
 parser.add_argument("-j","--workers",default=4,type=int,metavar="N",help="number of data loading workers (default: 4)",)
 # Optimization options
-parser.add_argument("--global_rounds",default=200,type=int,metavar="N",help="number of total epochs to run",)
-parser.add_argument("--local_epochs",default=2,type=int,metavar="N",help="number of total epochs to run",)
+parser.add_argument("--global_rounds",default=40,type=int,metavar="N",help="number of total epochs to run")
+parser.add_argument("--local_epochs",default=4,type=int,metavar="N",help="number of total epochs to run")
+
 parser.add_argument("--train-batch", default=128, type=int, metavar="N", help="train batchsize")
 parser.add_argument("--test-batch", default=100, type=int, metavar="N", help="test batchsize")
 parser.add_argument("--lr","--learning-rate",default=0.01,type=float,metavar="LR",help="initial learning rate",)
@@ -34,8 +34,10 @@ parser.add_argument("--weight-decay","--wd",default=5e-4,type=float,metavar="W",
 parser.add_argument("--num_branches", type=int, default=2, help="number of experts model")
 parser.add_argument("--beta", type=float, default=0.9999)
 parser.add_argument("--gama", type=float, default=1.0)
+
+parser.add_argument("--prune-mode", type=str, default='global', help="global(per weight) or local (layer-wise per channel) ", choices=['global', 'local'])
 parser.add_argument("--prune-rate", type=float, default=0.05)
-parser.add_argument("--base", type=float, default=0.5, help='the val accuracy base line for pruning')
+parser.add_argument("--base", type=float, default=0.5, help='the base accuracy to start pruning')
 parser.add_argument("--step", type=float, default=0.02, help='increase base by step every time the model is pruned')
 parser.add_argument("--pretrained", dest='pretrained', action='store_true')
 parser.add_argument('-e', '--evaluate', dest='evaluate', action='store_true',
