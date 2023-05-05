@@ -6,7 +6,8 @@ class ResNetEns(nn.Module):
 
     def __init__(self, branches, num_classes=1000, block_name='BasicBlock', num=20):
         super(ResNetEns, self).__init__()
-        self.ens = nn.ModuleList([branch for branch in branches])
+        # self.ens = nn.ModuleList([branch for branch in branches])
+        self.ens = nn.ModuleList(branches)
         # self.num_sub = num_classes//num
 
     def forward(self, x):

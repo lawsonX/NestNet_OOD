@@ -1,0 +1,106 @@
+(bsq-cs) xiaolirui@4U-GPU-Server:~/workspace/NestNet_OOD_local$ CUDA_VISIBLE_DEVICES=1 python src/train.py --lr 0.1 --global_rounds 30 --local_epochs 4 --schedule 8 22 --num_branches 2 --p
+rune-mode global --checkpoint checkpoint/0504/ft_global_prune --pretrained                                                                                                                  
+{'model': 'resnet18', 'dataset': 'cifar10', 'prune_mode': 'global', 'workers': 4, 'global_rounds': 30, 'local_epochs': 4, 'train_batch': 128, 'test_batch': 100, 'lr': 0.1, 'schedule': [8, 
+22], 'weight_decay': 0.0005, 'num_branches': 2, 'beta': 0.9999, 'gama': 1.0, 'prune_rate': 0.05, 'base': 0.5, 'step': 0.02, 'pretrained': True, 'evaluate': False, 'checkpoint': 'checkpoint
+/0504/ft_global_prune'} 
+
+pretrained global model loaded                                                                
+-------------Training Global Epoch:1/30 with learning rate:0.1-------------                                                                                                                 
+Training Branch 0 | Local Epoch [1/4] | Train loss: 0.7268 | Train Acc: 0.8737                                                                                                              
+Training Branch 0 | Local Epoch [2/4] | Train loss: 0.3973 | Train Acc: 0.9226                                                                                                              
+Training Branch 0 | Local Epoch [3/4] | Train loss: 0.3382 | Train Acc: 0.9332                                                                                                              
+Training Branch 0 | Local Epoch [4/4] | Train loss: 0.3089 | Train Acc: 0.9395                                                                                                              
+Validating Branch 0 | Val loss: 0.7865 | Val Acc: 0.8070                                                                                                                                    
+Training Branch 1 | Local Epoch [1/4] | Train loss: 0.7034 | Train Acc: 0.8822                                                                                                              
+Training Branch 1 | Local Epoch [2/4] | Train loss: 0.3240 | Train Acc: 0.9364                                                                                                              
+Training Branch 1 | Local Epoch [3/4] | Train loss: 0.2825 | Train Acc: 0.9459                                                                                                              
+Training Branch 1 | Local Epoch [4/4] | Train loss: 0.2498 | Train Acc: 0.9503                                                                                                              
+Validating Branch 1 | Val loss: 0.3322 | Val Acc: 0.8996                                                                                                                                    
+/home/xiaolirui/workspace/NestNet_OOD_local/src/train.py:343: UserWarning: volatile was removed and now has no effect. Use `with torch.no_grad():` instead.
+  inputs, targets = torch.autograd.Variable(inputs, volatile=True), torch.autograd.Variable(targets)                                                                                        
+
+Globaln Validation Loss avg :0.573 | Acc avg :0.8436 | Current Pruned ratio:0.0 
+
+-------------Training Global Epoch:3/30 with learning rate:0.1-------------                                                                                                                 
+Training Branch 0 | Local Epoch [1/4] | Train loss: 0.4229 | Train Acc: 0.9236                                                                                                              
+Training Branch 0 | Local Epoch [2/4] | Train loss: 0.3189 | Train Acc: 0.9381                                                                                                              
+Training Branch 0 | Local Epoch [3/4] | Train loss: 0.2893 | Train Acc: 0.9436                                                                                                              
+Training Branch 0 | Local Epoch [4/4] | Train loss: 0.2716 | Train Acc: 0.9459                                                                                                              
+Validating Branch 0 | Val loss: 0.3106 | Val Acc: 0.9007                                                                                                                                    
+Training Branch 1 | Local Epoch [1/4] | Train loss: 0.3383 | Train Acc: 0.9375                                                                                                              
+Training Branch 1 | Local Epoch [2/4] | Train loss: 0.2575 | Train Acc: 0.9497                                                                                                              
+Training Branch 1 | Local Epoch [3/4] | Train loss: 0.2333 | Train Acc: 0.9535                                                                                                              
+Training Branch 1 | Local Epoch [4/4] | Train loss: 0.2048 | Train Acc: 0.9598                                                                                                              
+Validating Branch 1 | Val loss: 0.3253 | Val Acc: 0.9090                                                                                                                                    
+
+Globaln Validation Loss avg :0.346 | Acc avg :0.8945 | Current Pruned ratio:0.0 
+
+-------------Training Global Epoch:10/30 with learning rate:0.01-------------                                                                                                               
+Training Branch 0 | Local Epoch [1/4] | Train loss: 0.2606 | Train Acc: 0.9900                                                                                                              
+Training Branch 0 | Local Epoch [2/4] | Train loss: 0.0987 | Train Acc: 0.9936                                                                                                              
+Training Branch 0 | Local Epoch [3/4] | Train loss: 0.0738 | Train Acc: 0.9944                                                                                                              
+Training Branch 0 | Local Epoch [4/4] | Train loss: 0.0591 | Train Acc: 0.9951                                                                                                              
+Validating Branch 0 | Val loss: 0.2195 | Val Acc: 0.9311                                                                                                                                    
+Training Branch 1 | Local Epoch [1/4] | Train loss: 0.2255 | Train Acc: 0.9927                                                                                                              
+Training Branch 1 | Local Epoch [2/4] | Train loss: 0.0785 | Train Acc: 0.9952                                                                                                              
+Training Branch 1 | Local Epoch [3/4] | Train loss: 0.0557 | Train Acc: 0.9962                                                                                                              
+Training Branch 1 | Local Epoch [4/4] | Train loss: 0.0449 | Train Acc: 0.9964                                                                                                              
+Validating Branch 1 | Val loss: 0.1866 | Val Acc: 0.9449                                                                                                                                    
+
+Globaln Validation Loss avg :0.2276 | Acc avg :0.9276 | Current Pruned ratio:0.0
+
+-------------Training Global Epoch:15/30 with learning rate:0.01-------------                                                                                                               
+Training Branch 0 | Local Epoch [1/4] | Train loss: 0.5188 | Train Acc: 0.9847                                                                                                              
+Training Branch 0 | Local Epoch [2/4] | Train loss: 0.1417 | Train Acc: 0.9917                                                                                                              
+Training Branch 0 | Local Epoch [3/4] | Train loss: 0.0945 | Train Acc: 0.9936                                                                                                              
+Training Branch 0 | Local Epoch [4/4] | Train loss: 0.0739 | Train Acc: 0.9943                                                                                                              
+Validating Branch 0 | Val loss: 0.2169 | Val Acc: 0.9305                                                                                                                                    
+Training Branch 1 | Local Epoch [1/4] | Train loss: 0.4595 | Train Acc: 0.9903                                                                                                              
+Training Branch 1 | Local Epoch [2/4] | Train loss: 0.1139 | Train Acc: 0.9942                                                                                                              
+Training Branch 1 | Local Epoch [3/4] | Train loss: 0.0740 | Train Acc: 0.9955                                                                                                              
+Training Branch 1 | Local Epoch [4/4] | Train loss: 0.0569 | Train Acc: 0.9964                                                                                                              
+Validating Branch 1 | Val loss: 0.1874 | Val Acc: 0.9450                                                                                                                                    
+
+Globaln Validation Loss avg :0.2326 | Acc avg :0.9269 | Current Pruned ratio:0.0                                                                                                            
+
+-------------Training Global Epoch:22/30 with learning rate:0.01-------------                                                                                                               
+Training Branch 0 | Local Epoch [1/4] | Train loss: 1.0696 | Train Acc: 0.9331                                                                                                              
+Training Branch 0 | Local Epoch [2/4] | Train loss: 0.2110 | Train Acc: 0.9885                                                                                                              
+Training Branch 0 | Local Epoch [3/4] | Train loss: 0.1214 | Train Acc: 0.9914                                                                                                              
+Training Branch 0 | Local Epoch [4/4] | Train loss: 0.0903 | Train Acc: 0.9923                                                                                                              
+Validating Branch 0 | Val loss: 0.2214 | Val Acc: 0.9283                                                                                                                                    
+Training Branch 1 | Local Epoch [1/4] | Train loss: 0.9778 | Train Acc: 0.9580                                                                                                              
+Training Branch 1 | Local Epoch [2/4] | Train loss: 0.1729 | Train Acc: 0.9916                                                                                                              
+Training Branch 1 | Local Epoch [3/4] | Train loss: 0.0975 | Train Acc: 0.9937                                                                                                              
+Training Branch 1 | Local Epoch [4/4] | Train loss: 0.0703 | Train Acc: 0.9949                                                                                                              
+Validating Branch 1 | Val loss: 0.1939 | Val Acc: 0.9429                                                                                                                                    
+
+Globaln Validation Loss avg :0.2407 | Acc avg :0.9241 | Current Pruned ratio:0.0  
+
+-------------Training Global Epoch:29/30 with learning rate:0.001-------------                                                                                                              
+Training Branch 0 | Local Epoch [1/4] | Train loss: 3.1493 | Train Acc: 0.4965                                                                                                              
+Training Branch 0 | Local Epoch [2/4] | Train loss: 2.7993 | Train Acc: 0.5000                                                                                                              
+Training Branch 0 | Local Epoch [3/4] | Train loss: 2.4762 | Train Acc: 0.5001                                                                                                              
+Training Branch 0 | Local Epoch [4/4] | Train loss: 2.1590 | Train Acc: 0.5237                                                                                                              
+Validating Branch 0 | Val loss: 1.1175 | Val Acc: 0.6213                                                                                                                                    
+Training Branch 1 | Local Epoch [1/4] | Train loss: 3.1374 | Train Acc: 0.5138                                                                                                              
+Training Branch 1 | Local Epoch [2/4] | Train loss: 2.7730 | Train Acc: 0.5000                                                                                                              
+Training Branch 1 | Local Epoch [3/4] | Train loss: 2.4264 | Train Acc: 0.5058                                                                                                              
+Training Branch 1 | Local Epoch [4/4] | Train loss: 2.0730 | Train Acc: 0.6151                                                                                                              
+Validating Branch 1 | Val loss: 1.0588 | Val Acc: 0.7616                                                                                                                                    
+
+Globaln Validation Loss avg :1.775 | Acc avg :0.9108 | Current Pruned ratio:0.0 
+
+-------------Training Global Epoch:30/30 with learning rate:0.001-------------                                                                                                              
+Training Branch 0 | Local Epoch [1/4] | Train loss: 3.1798 | Train Acc: 0.4975                                                                                                              
+Training Branch 0 | Local Epoch [2/4] | Train loss: 2.8636 | Train Acc: 0.5000                                                                                                              
+Training Branch 0 | Local Epoch [3/4] | Train loss: 2.5688 | Train Acc: 0.5000                                                                                                              
+Training Branch 0 | Local Epoch [4/4] | Train loss: 2.2738 | Train Acc: 0.5024                                                                                                              
+Validating Branch 0 | Val loss: 1.1819 | Val Acc: 0.5368                                                                                                                                    
+Training Branch 1 | Local Epoch [1/4] | Train loss: 3.1700 | Train Acc: 0.5101                                                                                                              
+Training Branch 1 | Local Epoch [2/4] | Train loss: 2.8423 | Train Acc: 0.5000                                                                                                              
+Training Branch 1 | Local Epoch [3/4] | Train loss: 2.5283 | Train Acc: 0.5001                                                                                                              
+Training Branch 1 | Local Epoch [4/4] | Train loss: 2.2024 | Train Acc: 0.5383                                                                                                              
+Validating Branch 1 | Val loss: 1.1337 | Val Acc: 0.6540                                                                                                                                    
+
+Globaln Validation Loss avg :1.8615 | Acc avg :0.9089 | Current Pruned ratio:0.0
